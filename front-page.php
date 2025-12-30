@@ -5,7 +5,7 @@
         <?php get_sidebar(); ?>
     </aside>
     <main class="main-content">
-        <?php 
+         <?php 
         $header_text = get_theme_mod('homepage_h1_text', '登録不要、商用利用OKのAI動画素材サイト｜SozAI-Video-'); 
         $desc_text = get_theme_mod('homepage_text', 'IF YOU SEE THIS, THE CODE IS WORKING'); 
 

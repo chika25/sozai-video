@@ -24,6 +24,40 @@ function my_theme_register_menus() {
 }
 add_action('init', 'my_theme_register_menus');
 
+// change text for main page
+function sozai_customize_register( $wp_customize ) {
+    // Add the section
+    $wp_customize->add_section( 'sozai_seo_section' , array(
+        'title'    => 'SEO Settings',
+        'priority' => 30,
+    ) );
+
+    // --- H1 title ---
+    $wp_customize->add_setting( 'homepage_h1_text' , array(
+        'default'   => '登録不要、商用利用OKのAI動画素材サイト｜SozAI-Video-',
+        'transport' => 'refresh',
+    ) );
+    $wp_customize->add_control( 'homepage_h1_control', array(
+        'label'    => 'Homepage H1 Title',
+        'section'  => 'sozai_seo_section',
+        'settings' => 'homepage_h1_text',
+        'type'     => 'text',
+    ) );
+
+    // --- DESCRIPTION PARAGRAPH ---
+    $wp_customize->add_setting( 'homepage_text' , array(
+        'default'   => '',
+        'transport' => 'refresh',
+    ) );
+    $wp_customize->add_control( 'homepage_text_control', array(
+        'label'    => 'Homepage Description',
+        'section'  => 'sozai_seo_section',
+        'settings' => 'homepage_text',
+        'type'     => 'textarea', 
+    ) );
+}
+add_action( 'customize_register', 'sozai_customize_register' );
+
 // Change color
 function my_theme_customizer($wp_customize) {
     $wp_customize->add_section('theme_colors', array(
@@ -93,4 +127,58 @@ function register_video_taxonomy() {
 }
 add_action('init', 'register_video_taxonomy');
 
+// custom tags
+// 1. REGISTER THE VIDEO POST TYPE
+function register_sozai_video_post_type() {
+    $labels = array(
+        'name'               => 'Videos',
+        'singular_name'      => 'Video',
+        'add_new'            => 'Add New Video', // Keep this as "Video"
+        'add_new_item'       => 'Add New Video',
+        'edit_item'          => 'Edit Video',
+        'menu_name'          => 'Videos',
+    );
+
+    $args = array(
+        'labels'              => $labels,
+        'public'              => true,
+        'has_archive'         => true,
+        'menu_icon'           => 'dashicons-video-alt3',
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'rewrite'             => array('slug' => 'videos'),
+        'show_in_rest'        => true, 
+    );
+
+    register_post_type('video', $args);
+}
+add_action('init', 'register_sozai_video_post_type');
+
+
+// 2. REGISTER THE KEYWORDS TAXONOMY
+function register_video_keywords_taxonomy() {
+    $labels = array(
+        'name'              => 'Keywords',
+        'singular_name'     => 'Keyword',
+        'search_items'      => 'Search Keywords',
+        'all_items'         => 'All Keywords',
+        'edit_item'         => 'Edit Keyword',
+        'update_item'       => 'Update Keyword',
+        'add_new_item'      => 'Add New Keyword',
+        'menu_name'         => 'Keywords',
+    );
+
+    $args = array(
+        'hierarchical'      => false, // Set to false so it acts like TAGS (pills)
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'keyword' ),
+        'show_in_rest'      => true,
+    );
+
+    // This links the Keywords to the 'video' post type specifically
+    register_taxonomy( 'video_keyword', array( 'video' ), $args );
+}
+add_action( 'init', 'register_video_keywords_taxonomy' );
 ?>

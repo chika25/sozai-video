@@ -1,3 +1,9 @@
+/*
+Theme Name: Sozai Theme
+Author: Your Name
+Description: A custom video theme for AI assets.
+Version: 1.0
+*/
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -72,6 +78,19 @@ a {
     display: flex;
 }
 
+.main-seo-title {
+    font-size: 1.8rem;
+    text-align:center;
+    margin-top:25px;
+}
+
+.main-seo-text {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 25px;
+    font-size: 1.3rem;
+}
+
 /* Sidebar */
 .sidebar {
     width: 350px; 
@@ -96,7 +115,33 @@ a {
     display: inline-block;
 }
 
-.sidebar-link:hover{
+.keyword-list-container{
+    border: 2px solid rgba(80, 80, 80, 0.1);
+    background-color: white;
+    padding: 7px 25px;
+    border-radius: 10px;
+}
+
+.sidebar-title{
+    padding-bottom:5px;
+}
+
+.keyword-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.keyword-pill {
+    background-color: #9f9e9e;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 5px;
+    color: white;
+    display: inline-block;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-link:hover, .keyword-pill:hover{
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

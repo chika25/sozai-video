@@ -8,6 +8,33 @@
         利用規約
     </a>
 
+    <div class="keyword-list-container">
+        <p class="sidebar-title">オススメキーワード</p>
+        <div class="keyword-list">
+            <?php
+            $terms = get_terms(array(
+                'taxonomy'   => 'video_keyword',
+                'hide_empty' => false, // Set to true once you have real videos assigned
+            ));
+
+            if (!empty($terms) && !is_wp_error($terms)) :
+                foreach ($terms as $term) : 
+                    // Get the URL for the specific tag page
+                    $term_link = get_term_link($term); 
+                    ?>
+                    
+                    <a href="<?php echo esc_url($term_link); ?>" class="keyword-pill">
+                        <?php echo esc_html($term->name); ?>
+                    </a>
+
+                <?php endforeach;
+            else :
+                echo '<p>No keywords added yet.</p>';
+            endif;
+            ?>
+        </div>
+    </div>
+
     <?php 
             $site_url = "https://sozaiai.com";
             $site_name = "姉妹サイト：SozAI (画像素材)";
