@@ -55,6 +55,18 @@ function sozai_customize_register( $wp_customize ) {
         'settings' => 'homepage_text',
         'type'     => 'textarea', 
     ) );
+
+    // --- H2 TITLE TEXT ---
+    $wp_customize->add_setting( 'h2_title_text' , array(
+        'default'   => '新着動画素材',
+        'transport' => 'refresh',
+    ) );
+    $wp_customize->add_control( 'h2_title_text_control', array(
+        'label'    => 'Homepage H2 Title Text',
+        'section'  => 'sozai_seo_section',
+        'settings' => 'h2_title_text',
+        'type'     => 'text', 
+    ) );
 }
 add_action( 'customize_register', 'sozai_customize_register' );
 
