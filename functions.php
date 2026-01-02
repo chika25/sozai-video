@@ -24,7 +24,7 @@ function my_theme_register_menus() {
 }
 add_action('init', 'my_theme_register_menus');
 
-// change text for main page
+// change text for main page, taxonomy page
 function sozai_customize_register( $wp_customize ) {
     // Add the section
     $wp_customize->add_section( 'sozai_seo_section' , array(
@@ -66,6 +66,31 @@ function sozai_customize_register( $wp_customize ) {
         'section'  => 'sozai_seo_section',
         'settings' => 'h2_title_text',
         'type'     => 'text', 
+    ) );
+
+    
+    // --- TAXONOMY TITLE ---
+    $wp_customize->add_setting( 'taxonomy_h1_text' , array(
+        'default'   => 'のAI動画素材 (登録不要・商用利用Ok)|SozAI-Video',
+        'transport' => 'refresh',
+    ) );
+    $wp_customize->add_control( 'taxonomy_h1_text_control', array(
+        'label'    => 'Taxonomy Title',
+        'section'  => 'sozai_seo_section',
+        'settings' => 'taxonomy_h1_text',
+        'type'     => 'text', 
+    ) );
+
+    // --- TAXONOMY DESC ---
+    $wp_customize->add_setting( 'taxonomy_text' , array(
+        'default'   => 'の高品質なAI動画素材を豊富に取り揃えています。',
+        'transport' => 'refresh',
+    ) );
+    $wp_customize->add_control( 'taxonomy_text_control', array(
+        'label'    => 'Taxonomy Desc Text',
+        'section'  => 'sozai_seo_section',
+        'settings' => 'taxonomy_text',
+        'type'     => 'textarea', 
     ) );
 }
 add_action( 'customize_register', 'sozai_customize_register' );

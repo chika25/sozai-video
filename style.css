@@ -143,6 +143,47 @@ a {
     background-color: black;
 }
 
+/* breadcrumbs */
+.breadcrumbs+.main-seo-title {
+    padding-top: 0;
+}
+
+.breadcrumbs {
+    margin: 20px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-link:hover {
+    color: #00BFFF;
+}
+
+.breadcrumb-sep {
+    color: #ccc;
+    font-size: 0.75rem;
+}
+
+.breadcrumb-current {
+    color: #333;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* for taxonomy page and details page, remove padding */
+.breadcrumbs~.video-section {
+    padding-top: 0;
+}
+
 /* Main content */
 .main-content {
     flex: 1; 

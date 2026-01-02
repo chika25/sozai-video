@@ -6,31 +6,32 @@
     </aside>
     <main class="main-content">
         <div class="main-wrapper">
-            <?php get_template_part('template-parts/breadcrumbs'); ?>
+            <?php get_template_part('template-parts/content-breadcrumbs'); ?>
             
             <?php 
-            $header_text = get_theme_mod('homepage_h1_text', '登録不要、商用利用OKのAI動画素材サイト｜SozAI-Video-'); 
-            $desc_text = get_theme_mod('homepage_text', 'IF YOU SEE THIS, THE CODE IS WORKING'); 
-            $h2_title = get_theme_mod('h2_title_text', '新着動画素材');
+            $current_term = single_term_title('', false);
+            $unique_desc  = term_description();
+            $taxonomy_text = get_theme_mod('taxonomy_h1_text', 'のAI動画素材 (登録不要・商用利用Ok)|SozAI-Video'); 
             ?>
-
-            <?php if ( $header_text ): ?>
-                <h1 class="main-seo-title">
-                    <?php echo esc_html( $header_text ); ?>
-                </h1>
-            <?php endif; ?>
-
-            <?php if ( $desc_text ) : ?>
-                <p class="main-seo-text">
-                    <?php echo nl2br(esc_html( $desc_text )); ?>
-                </p>
-            <?php endif; ?>
+            
+            <h1 class="main-seo-title">
+                <?php if ( $taxonomy_text ): ?>
+                    <?php echo $current_term, esc_html( $taxonomy_text ); ?>
+                <?php endif; ?>
+            </h1>
+    
+            <p class="main-seo-text">
+                <?php 
+                    if ( ! empty( $unique_desc ) ) {
+                        echo esc_html( wp_strip_all_tags( $unique_desc ) );
+                    } else {
+                        $global_desc = get_theme_mod('taxonomy_text', 'の高品質なAI動画素材を豊富に取り揃えています。');
+                        echo esc_html($current_term) . esc_html($global_desc);
+                    }
+                ?>
+            </p>
 
             <section class="video-section">
-                <?php if ($h2_title) : ?>
-                    <h2 class="h2-title-home"><?php echo esc_html( $h2_title); ?></h2>
-                <?php endif; ?>
-                
                 <div class="video-grid">
                     <artivle class="video-card">
                         <a href="">
