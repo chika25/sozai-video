@@ -14,22 +14,17 @@
             $taxonomy_text = get_theme_mod('taxonomy_h1_text', 'のAI動画素材 (登録不要・商用利用Ok)|SozAI-Video'); 
             ?>
             
-            <h1 class="main-seo-title">
-                <?php if ( $taxonomy_text ): ?>
+            <?php if ( $taxonomy_text ): ?>
+                <h1 class="main-seo-title">  
                     <?php echo $current_term, esc_html( $taxonomy_text ); ?>
-                <?php endif; ?>
-            </h1>
+                </h1>
+            <?php endif; ?>
     
-            <p class="main-seo-text">
-                <?php 
-                    if ( ! empty( $unique_desc ) ) {
-                        echo esc_html( wp_strip_all_tags( $unique_desc ) );
-                    } else {
-                        $global_desc = get_theme_mod('taxonomy_text', 'の高品質なAI動画素材を豊富に取り揃えています。');
-                        echo esc_html($current_term) . esc_html($global_desc);
-                    }
-                ?>
-            </p>
+            <?php if ( $unique_desc ) : ?>
+                <p class="main-seo-text">
+                    <?php echo esc_html( wp_strip_all_tags( $unique_desc ) ); ?>
+                </p>
+            <?php endif; ?>
 
             <section class="video-section">
                 <div class="video-grid">

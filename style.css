@@ -179,7 +179,7 @@ a {
     text-overflow: ellipsis;
 }
 
-/* for taxonomy page and details page, remove padding */
+/* for taxonomy page, remove padding */
 .breadcrumbs~.video-section {
     padding-top: 0;
 }
@@ -251,6 +251,90 @@ a {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Details Page */
+.video-hero__main {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.video-hero {
+    padding-bottom: 40px;
+}
+
+.video-hero__player{
+    width:100%;
+}
+
+.video-hero__player video{ 
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.video-keywords {
+    margin-top: 15px;
+}
+
+.video-keywords__title {
+    font-weight: bold;
+}
+
+.video-keywords__list {
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.kw-badge {
+    background: linear-gradient(to top, #FFA774, #FFF36E);
+    margin-right: 10px;
+    padding: 5px 15px;
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.kw-badge:hover{
+    transform: translateY(-2px);
+}
+
+.btn-download {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+    background-color: #00BFFF;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    margin-top: 30px;
+    transition: transform 0.2s ease;
+}
+
+.btn-download:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.video-details {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.label {
+    margin-right: 5px;
+}
+
+.video-details__content p {
+    margin-bottom: 3px;
+}
+
+.video-details__content p:last-child{
+    margin-bottom:0;
+}
+
 
 /* footer */
 .site-footer{
