@@ -1,7 +1,6 @@
 <div class="secondary-sidebar-container">
     <?php 
-    // Get the ID of your Terms page (you find this in the Pages dashboard)
-    $terms_page_id = 42; // Change this to your actual page ID
+    $terms_page_id = 15; 
     ?>
     
     <a href="<?php echo get_permalink($terms_page_id); ?>" class="sidebar-link">
@@ -19,7 +18,6 @@
 
             if (!empty($terms) && !is_wp_error($terms)) :
                 foreach ($terms as $term) : 
-                    // Get the URL for the specific tag page
                     $term_link = get_term_link($term); 
                     ?>
                     

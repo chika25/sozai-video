@@ -7,9 +7,9 @@
     <main class="main-content">
         <div class="main-wrapper">
             <?php get_template_part('template-parts/breadcrumbs'); ?>
-            
+
             <?php 
-            $header_text = get_theme_mod('homepage_h1_text', '登録不要、商用利用OKのAI動画素材サイト｜SozAI-Video-'); 
+            $header_text = get_theme_mod('homepage_h1_text', '登録不要、商用利用OKのAI動画素材サイト|SozAI-Video-'); 
             $desc_text = get_theme_mod('homepage_text', 'IF YOU SEE THIS, THE CODE IS WORKING'); 
             $h2_title = get_theme_mod('h2_title_text', '新着動画素材');
             ?>

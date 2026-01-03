@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Legal Page (Privacy/Terms)
+ * Template Name: Blog Home Template
  */
 get_header(); ?>
 <?php get_template_part('category-slider'); ?>
@@ -11,7 +11,7 @@ get_header(); ?>
     <main class="main-content">
         <div class="main-wrapper">
             <?php get_template_part('template-parts/content-breadcrumbs'); ?>
-
+            
             <section class="page-content">
                 <?php while ( have_posts() ) : the_post(); ?>
 
@@ -19,13 +19,10 @@ get_header(); ?>
                         <?php the_title(); ?>
                     </h1>
 
-                    <div class="legal-content">
-                        <?php the_content(); ?>
-                    </div>
+                    <p>準備中</p>
 
                 <?php endwhile; ?>
-            </section>  
-            
+            </section>
         </div>
     </main>
 </div>

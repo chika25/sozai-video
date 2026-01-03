@@ -373,3 +373,28 @@ a {
     text-align: center;      
     opacity: 0.8;            
 }
+
+/* Page Template */
+.page-content {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.entry-title {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 40px;
+    border-bottom: solid 2px transparent;
+    border-image: linear-gradient(to right, #fffd6a, #FFFB01, #ffcc8a, #FFA774) 2;
+    padding-bottom: 15px;
+}
+
+/* Legal Page */
+.legal-content h2 {
+    border-left: solid 5px #FFA774;
+    padding-left: 5px;
+}
+
+.legal-content p {
+    margin-bottom: 45px;
+}
