@@ -11,8 +11,8 @@
                 --main-bg: <?php echo get_theme_mod('main_bg_color', '#ffffff'); ?>;
                 --footer-bg: <?php echo get_theme_mod('footer_bg_color', '#ffffff'); ?>;
                 --category-bg: <?php echo get_theme_mod('category_bg_color', '#F8FAFC '); ?>;
-                --hover-color: <?php echo get_theme_mod('link_hover_color', '#808080'); ?>;
-                --category-hover: <?php echo get_theme_mod('category_hover_color', '#96abc1ff'); ?>;
+                --hover-color: <?php echo get_theme_mod('link_hover_color', '#00BFFF'); ?>;
+                --category-hover: <?php echo get_theme_mod('category_hover_color', '#ff9900'); ?>;
             }
         </style>
     </head>

@@ -131,22 +131,22 @@ function my_theme_customizer($wp_customize) {
         'section' => 'theme_colors',
     )));
 
-    // 3. Footer Background
+    // 3. Category slider Background
     $wp_customize->add_setting('category_bg_color', array('default' => '#F8FAFC'));
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'category_bg_color', array(
         'label' => 'Category Slider Background',
         'section' => 'theme_colors',
     )));
 
-    // 4. Hover Color
-    $wp_customize->add_setting('link_hover_color', array('default' => '#808080'));
+    // 4. Footer Hover Color
+    $wp_customize->add_setting('link_hover_color', array('default' => '#00BFFF'));
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'link_hover_color', array(
-        'label' => 'Link Hover Color',
+        'label' => 'Footer Link Hover Color',
         'section' => 'theme_colors',
     )));
 
     // 5. Category Hover Color
-    $wp_customize->add_setting('category_hover_color', array('default' => '#96abc1ff'));
+    $wp_customize->add_setting('category_hover_color', array('default' => '#ff9900'));
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'category_hover_color', array(
         'label' => 'Category Hover Color',
         'section' => 'theme_colors',

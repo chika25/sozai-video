@@ -170,6 +170,9 @@ a {
     flex-wrap: wrap;
 }
 
+.breadcrumb-link{
+    transition: color 0.3s ease;
+}
 .breadcrumb-link:hover {
     color: var(--primary-blue);
 }
@@ -371,8 +374,8 @@ a {
     transition: color 0.3s ease;
 }
 
-.footer-navigation li:hover {
-    color: var(--hover-color); 
+.footer-navigation li:hover { 
+    color: var(--primary-blue);
 }
 
 .copy-right {    
