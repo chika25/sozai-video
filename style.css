@@ -288,7 +288,7 @@ a {
 }
 
 .kw-badge {
-    background: linear-gradient(to top, #FFA774, #FFF36E);
+    background: linear-gradient(to top, #ff9900, #FFF36E);
     margin-right: 10px;
     padding: 5px 15px;
     color: white;
@@ -385,16 +385,101 @@ a {
     margin: auto;
     margin-bottom: 40px;
     border-bottom: solid 2px transparent;
-    border-image: linear-gradient(to right, #fffd6a, #FFFB01, #ffcc8a, #FFA774) 2;
+    border-image: linear-gradient(to right, #fffd6a, #FFFB01, #FFA774, #ff9900) 2;
     padding-bottom: 15px;
+}
+
+p.contact-text, .content-about, .legal-content p {
+    margin-bottom: 45px;
 }
 
 /* Legal Page */
 .legal-content h2 {
-    border-left: solid 5px #FFA774;
+    border-left: solid 5px #ff9900;
     padding-left: 5px;
 }
 
-.legal-content p {
-    margin-bottom: 45px;
+/* Contact Us, Request Page */
+.sozai-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.sozai-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 20px; 
+    color: #333;
+}
+
+.sozai-form input[type="text"],
+.sozai-form input[type="email"],
+.sozai-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; 
+}
+
+.sozai-form input:focus,
+.sozai-form textarea:focus {
+    border-color: #ff9900;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 153, 0, 0.3);
+}
+
+.sozai-submit {
+    background: linear-gradient(to left, #ff9900, #ffcc00);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px; 
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.sozai-submit:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.wpcf7-spinner {
+    position: absolute;
+}
+
+.sozai-privacy-check {
+    margin: 20px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.sozai-privacy-check a {
+    color: #ff9900;
+    text-decoration: underline;
+}
+
+.sozai-privacy-check a:hover {
+    color: #ffcc00;
+}
+
+.sozai-privacy-check input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.contact-text{
+    margin-top:20px;
 }
