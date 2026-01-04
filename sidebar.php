@@ -7,6 +7,8 @@
         利用規約
     </a>
 
+    <?php get_search_form(); ?>
+    
     <div class="keyword-list-container">
         <p class="sidebar-title">オススメキーワード</p>
         <div class="keyword-list">

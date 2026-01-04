@@ -4,6 +4,12 @@ Author: Your Name
 Description: A custom video theme for AI assets.
 Version: 1.0
 */
+:root {
+    --main-gradient: linear-gradient(to left, #ff9900, #ffcc00);
+    --primary-orange: #ff9900;
+    --primary-blue: #00BFFF;
+}
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -103,7 +109,7 @@ a {
     background-color: white;
     padding: 7px 25px;
     border-radius: 10px;
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    transition: box-shadow 0.3s ease, transform 0.2s ease, background-image 0.2s ease;
     display: inline-block;
 }
 
@@ -130,17 +136,19 @@ a {
     margin: 5px;
     color: white;
     display: inline-block;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-image 0.3s ease, transform 0.2s ease;
 }
 
 .sidebar-link:hover{
     transform: translateY(-2px);
+    background-image: var(--main-gradient);
+    color:white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .keyword-pill:hover{
     transform: translateY(-2px);
-    background-color: black;
+    background-image: var(--main-gradient);
 }
 
 /* breadcrumbs */
@@ -163,7 +171,7 @@ a {
 }
 
 .breadcrumb-link:hover {
-    color: #00BFFF;
+    color: var(--primary-blue);
 }
 
 .breadcrumb-sep {
@@ -236,7 +244,7 @@ a {
 
 .read-more-button {
     display:block;
-    background-color: #00BFFF;
+    background: var(--main-gradient);
     color: white;
     font-weight: bold;
     border-radius: 10px;
@@ -288,7 +296,7 @@ a {
 }
 
 .kw-badge {
-    background: linear-gradient(to top, #ff9900, #FFF36E);
+    background: var(--main-gradient);
     margin-right: 10px;
     padding: 5px 15px;
     color: white;
@@ -304,7 +312,7 @@ a {
     display: block;
     margin: 0 auto;
     width: fit-content;
-    background-color: #00BFFF;
+    background: var(--main-gradient);
     border-radius: 10px;
     padding: 10px 20px;
     color: white;
@@ -395,7 +403,7 @@ p.contact-text, .content-about, .legal-content p {
 
 /* Legal Page */
 .legal-content h2 {
-    border-left: solid 5px #ff9900;
+    border-left: solid 5px var(--primary-orange);
     padding-left: 5px;
 }
 
@@ -427,13 +435,13 @@ p.contact-text, .content-about, .legal-content p {
 
 .sozai-form input:focus,
 .sozai-form textarea:focus {
-    border-color: #ff9900;
+    border-color: var(--primary-orange);
     outline: none;
     box-shadow: 0 0 5px rgba(255, 153, 0, 0.3);
 }
 
 .sozai-submit {
-    background: linear-gradient(to left, #ff9900, #ffcc00);
+    background: var(--main-gradient);
     color: white;
     border: none;
     padding: 15px 40px;
@@ -466,7 +474,7 @@ p.contact-text, .content-about, .legal-content p {
 }
 
 .sozai-privacy-check a {
-    color: #ff9900;
+    color: var(--primary-orange);
     text-decoration: underline;
 }
 
@@ -482,4 +490,47 @@ p.contact-text, .content-about, .legal-content p {
 
 .contact-text{
     margin-top:20px;
+}
+
+/* Search Bar */
+.search-form {
+    display: flex;
+    width: 100%;
+    gap: 0;
+    overflow: hidden;
+    justify-content: space-between;
+    border: 2px solid rgba(80, 80, 80, 0.1);
+    background-color: white;
+    border-radius: 10px;
+}
+
+.search-form label {
+    flex-grow: 1;
+}
+
+.search-field{
+    width: 100%;
+    border: none;
+    padding: 10px 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.search-field:focus{
+    outline: none;
+}
+
+.search-form:focus-within{
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 5px rgba(255, 153, 0, 0.3);
+}
+
+.search-submit {
+    color: black;
+    border: none;
+    background-color: white;
+    padding: 0 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }

@@ -1,6 +1,8 @@
 <?php
 // load styles
 function my_theme_assets() {
+    // Load Font Awesome 4.7
+    wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
     wp_enqueue_style( 'my-main-style', get_stylesheet_uri() );
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_assets' );
