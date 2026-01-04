@@ -512,6 +512,7 @@ p.contact-text, .content-about, .legal-content p {
     width: 100%;
     border: none;
     padding: 10px 15px;
+    padding-right:0;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }

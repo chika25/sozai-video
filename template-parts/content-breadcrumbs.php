@@ -27,7 +27,9 @@ $b_post_id = get_the_ID();
             echo '<span class="breadcrumb-current">' . single_term_title( '', false ) . '</span>';
         } elseif ( is_page() ) {
             echo '<span class="breadcrumb-current">' . get_the_title() . '</span>';
-        }
+        } elseif ( is_search() ){
+            echo '<span class="breadcrumb-current">' . '検索：' . get_search_query() . '</span>';
+        }    
         ?>
     </div>
 </nav>
