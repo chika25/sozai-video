@@ -245,7 +245,7 @@ a {
     background-color: rgb(215, 215, 215);
 }
 
-.read-more-button {
+.load-more-button {
     display:block;
     background: var(--main-gradient);
     color: white;
@@ -258,7 +258,7 @@ a {
     transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-.read-more-button:hover{
+.load-more-button:hover{
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

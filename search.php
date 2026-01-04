@@ -8,19 +8,14 @@
         <div class="main-wrapper">
             <?php get_template_part('template-parts/content-breadcrumbs'); ?>
             
+            <h1 class="main-seo-title">
+                <?php echo '「' . get_search_query() . '」' . 'のフリー動画素材' ?>
+            </h1>
+
             <section class="video-section">
                 <div class="video-grid">
                     <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
+                        
                     </artivle>
                 </div>
             </section>

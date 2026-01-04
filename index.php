@@ -31,127 +31,37 @@
                     <h2 class="h2-title-home"><?php echo esc_html( $h2_title); ?></h2>
                 <?php endif; ?>
                 
-                <div class="video-grid">
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
+                <?php
+                    // Define the arguments 
+                    $num_display = 6;
+                    $args = array(
+                        'post_type'      => 'video', 
+                        'posts_per_page' => $num_display,       
+                        'orderby'        => 'date',  
+                        'order'          => 'DESC',
+                    );
 
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
+                    // loop the videos
+                    $video_query = new WP_Query( $args );
+                    if ( $video_query->have_posts() ) : ?>
+                        <div class="video-grid">
+                            <?php while ( $video_query->have_posts() ) : $video_query->the_post(); ?>
+                                <?php get_template_part('template-parts/video-content'); ?>
+                            <?php endwhile ?>
+                        </div>
+                
+                    <!-- load more button -->
+                     
+                    <?php if ( $video_query->found_posts > $num_display ) : ?>
+                        <?php sozai_render_load_more_button($video_query); ?>
+                    <?php endif; ?>
 
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
+                    <?php wp_reset_postdata(); ?>
 
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
+                <?php else : ?>
+                    <p>ビデオが見つかりませんでした。</p>
+                <?php endif; ?>
 
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
-
-
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
-
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
-
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
-
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
-
-                    <artivle class="video-card">
-                        <a href="">
-                            <div class="video-container">
-                                <video>
-                                    
-                                </video>
-                                <div class="video-overlay">
-                                    <h3 class="video-title"></h3>
-                                </div>
-                            </div>
-                        </a>
-                    </artivle>
-
-                </div>
-                <button class="read-more-button">もっと見る</button>
             </section>
         </div>
     </main>

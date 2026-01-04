@@ -285,4 +285,16 @@ function sozai_register_video_metadata() {
     }
 }
 add_action('init', 'sozai_register_video_metadata');
+
+// read more button
+function sozai_render_load_more_button($query) {
+    if ( $query->max_num_pages > 1 ) : ?>
+        <button id="load-more-videos"
+                data-page="1" 
+                data-max="<?php echo $query->max_num_pages; ?>"
+                class="load-more-button">
+            もっと見る
+        </button>
+    <?php endif;
+}
 ?>
