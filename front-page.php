@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<?php get_template_part('category-slider'); ?>
+<?php get_template_part('template-parts/category-slider'); ?>
 <div class="layout-wrapper">
     <aside class="sidebar">
         <?php get_sidebar(); ?>
