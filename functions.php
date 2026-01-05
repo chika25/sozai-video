@@ -7,6 +7,23 @@ function my_theme_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_assets' );
 
+function sozai_video_scripts() {
+    // 1. Register and Enqueue main.js
+    wp_enqueue_script( 
+        'sozai-main', 
+        get_template_directory_uri() . '/assets/js/main.js', 
+        array(), 
+        '1.0.0', 
+        true 
+    );
+
+    // 2. Attach the AJAX URL to that specific handle
+    wp_localize_script( 'sozai-main', 'sozai_ajax', array(
+        'ajaxurl' => admin_url( 'admin-ajax.php' )
+    ));
+}
+add_action( 'wp_enqueue_scripts', 'sozai_video_scripts' );
+
 // change logo
 function my_theme_setup() {
     add_theme_support('custom-logo', array(
@@ -288,13 +305,67 @@ add_action('init', 'sozai_register_video_metadata');
 
 // read more button
 function sozai_render_load_more_button($query) {
-    if ( $query->max_num_pages > 1 ) : ?>
-        <button id="load-more-videos"
+    $max_pages = $query->max_num_pages;
+    if ( $query->max_num_pages > 1 ) {
+        $term_slug = '';
+        $taxonomy = '';
+
+        if ( is_tax() || is_category() || is_tag() ) {
+            $obj = get_queried_object();
+            $term_slug = $obj->slug;
+            $taxonomy = $obj->taxonomy;
+        }
+        
+        echo '<button id="load-more-videos" 
                 data-page="1" 
-                data-max="<?php echo $query->max_num_pages; ?>"
-                class="load-more-button">
-            もっと見る
-        </button>
-    <?php endif;
+                data-max="' . $query->max_num_pages . '" 
+                data-term="' . esc_attr($term_slug) . '" 
+                data-tax="' . esc_attr($taxonomy) . '" 
+                class="load-more-button">もっと見る</button>';
+    }
 }
+
+
+// AJAX for load more videos
+function sozai_load_more_ajax_handler() {
+    // Get data from the JavaScript Payload
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $term  = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
+    $tax   = isset($_POST['tax']) ? sanitize_text_field($_POST['tax']) : '';
+
+    $args = array(
+        'post_type'      => 'video',
+        // make sure the number matches
+        'posts_per_page' => 1,
+        'paged'          => $paged,
+        'post_status'    => 'publish',
+    );
+
+    // ONLY apply the filter if the button sent us a term and tax
+    if ( !empty($term) && !empty($tax) ) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => $tax,
+                'field'    => 'slug',
+                'terms'    => $term,
+            ),
+        );
+    }
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) :
+        while ($query->have_posts()) : $query->the_post();
+            get_template_part('template-parts/video-content', 'video');
+        endwhile;
+    else :
+        echo 'DONE'; 
+    endif;
+
+    wp_reset_postdata();
+    wp_die();
+}
+// These hooks connect the JavaScript 'action' to the PHP function
+add_action('wp_ajax_load_more_videos', 'sozai_load_more_ajax_handler');
+add_action('wp_ajax_nopriv_load_more_videos', 'sozai_load_more_ajax_handler');
 ?>

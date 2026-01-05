@@ -31,7 +31,7 @@
                 <?php
                 // Setup Query Arguments
                 $current_term = get_queried_object();
-                $num_display = 6;
+                $num_display = 1;
 
                 if ( $current_term instanceof WP_Term ) {
                     $args = array(

@@ -10,7 +10,7 @@
 
             <?php 
             $header_text = get_theme_mod('homepage_h1_text', '登録不要、商用利用OKのAI動画素材サイト|SozAI-Video-'); 
-            $desc_text = get_theme_mod('homepage_text', 'IF YOU SEE THIS, THE CODE IS WORKING'); 
+            $desc_text = get_theme_mod('homepage_text', '...'); 
             $h2_title = get_theme_mod('h2_title_text', '新着動画素材');
             ?>
 
@@ -51,7 +51,6 @@
                         </div>
                 
                     <!-- load more button -->
-                     
                     <?php if ( $video_query->found_posts > $num_display ) : ?>
                         <?php sozai_render_load_more_button($video_query); ?>
                     <?php endif; ?>

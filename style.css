@@ -141,8 +141,7 @@ a {
 
 .sidebar-link:hover{
     transform: translateY(-2px);
-    background-image: var(--main-gradient);
-    color:white;
+    border-color: var(--primary-orange);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
