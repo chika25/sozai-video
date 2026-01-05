@@ -16,6 +16,8 @@
                 $resolution = get_post_meta(get_the_ID(), '_video_resolution', true);
                 $format = get_post_meta(get_the_ID(), '_video_format', true);
                 $fps = get_post_meta(get_the_ID(), '_video_fps', true); 
+                $url = get_post_meta(get_the_ID(), '_video_url', true); 
+                $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
                 ?>
 
                 <?php if ( $detail_header_suffix ): ?>
@@ -33,8 +35,9 @@
                 <section class="video-hero">
                     <div class="video-hero__main">
                         <div class="video-hero__player">
-                            <video controls poster="<?php  ?>">
-                                <source src="" type="video/mp4">
+                            <video controls poster="<?php echo esc_url($thumbnail);  ?>" preload="metadata">
+                                <source src="<?php  echo esc_url($url); ?>" type="video/mp4">
+                                <p>お使いのブラウザはビデオタグをサポートしていません。</p>
                             </video>
                         </div>
 
@@ -54,7 +57,7 @@
                                     ?>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url($video_url); ?>" download class="btn-download">
+                        <a href="<?php echo esc_url($url); ?>" download class="btn-download">
                             無料ダウンロード
                         </a>  
                     </div>

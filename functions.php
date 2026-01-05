@@ -32,6 +32,7 @@ function my_theme_setup() {
         'flex-height' => true,
         'flex-width'  => true,
     ));
+    add_theme_support( 'post-thumbnails' );
 }
 add_action('after_setup_theme', 'my_theme_setup');
 
@@ -262,6 +263,7 @@ function sozai_display_video_specs($post) {
     $resolution = get_post_meta($post->ID, '_video_resolution', true);
     $format     = get_post_meta($post->ID, '_video_format', true);
     $fps        = get_post_meta($post->ID, '_video_fps', true);
+    $url        = get_post_meta($post->ID, '_video_url', true);
 
     wp_nonce_field('sozai_video_specs_nonce', 'video_specs_nonce');
 
@@ -273,6 +275,9 @@ function sozai_display_video_specs($post) {
 
     echo '<p><label>フレームレート (FPS):</label><br>';
     echo '<input type="text" name="video_fps" value="' . esc_attr($fps) . '" placeholder="30fps" style="width:100%;"></p>';
+
+    echo '<p><label>URL:</label><br>';
+    echo '<input type="text" name="video_url" value="' . esc_attr($url) . '" placeholder="" style="width:100%;"></p>';
 }
 
 function sozai_save_video_specs($post_id) {
@@ -300,6 +305,9 @@ function sozai_save_video_specs($post_id) {
     }
     if (isset($_POST['video_fps'])) {
         update_post_meta($post_id, '_video_fps', sanitize_text_field($_POST['video_fps']));
+    }
+    if (isset($_POST['video_url'])) {
+        update_post_meta($post_id, '_video_url', sanitize_text_field($_POST['video_url']));
     }
 }
 
