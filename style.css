@@ -198,6 +198,7 @@ a {
 .main-content {
     flex: 1; 
     background-color: var(--main-bg);
+    height: -webkit-fill-available;
 }
 
 .main-wrapper{

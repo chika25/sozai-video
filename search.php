@@ -13,11 +13,32 @@
             </h1>
 
             <section class="video-section">
-                <div class="video-grid">
-                    <artivle class="video-card">
-                        
-                    </artivle>
-                </div>
+                <?php
+                $search_query = get_search_query();
+                $video_ids = sozai_get_video_search_ids($search_query);
+
+                $args = array(
+                    'post_type'      => 'video',
+                    'posts_per_page' => get_theme_mod('num_display_setting', 6),
+                    'post__in'       => !empty($video_ids) ? $video_ids : array(0),
+                    'orderby'        => 'post__in', // Keeps the most relevant first
+                );
+
+                $video_query = new WP_Query($args);
+
+                if ( $video_query->have_posts() ) : ?>
+                    <div class="video-grid">
+                        <?php while ( $video_query->have_posts() ) : $video_query->the_post(); ?>
+                            <?php get_template_part('template-parts/video-content'); ?>
+                        <?php endwhile; ?>
+                    </div>
+                    
+                    <?php sozai_render_load_more_button($video_query); ?>
+                    <?php wp_reset_postdata(); ?>
+
+                <?php else : ?>
+                    <p>「<?php echo esc_html($search_query); ?>」に一致するビデオが見つかりませんでした。</p>
+                <?php endif; ?>
             </section>
         </div>
     </main>

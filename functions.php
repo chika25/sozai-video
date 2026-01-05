@@ -324,10 +324,11 @@ add_action('init', 'sozai_register_video_metadata');
 
 // read more button
 function sozai_render_load_more_button($query) {
-    $max_pages = $query->max_num_pages;
     if ( $query->max_num_pages > 1 ) {
         $term_slug = '';
         $taxonomy = '';
+         // Capture the current search term
+        $search_query = get_search_query();
 
         if ( is_tax() || is_category() || is_tag() ) {
             $obj = get_queried_object();
@@ -340,6 +341,7 @@ function sozai_render_load_more_button($query) {
                 data-max="' . $query->max_num_pages . '" 
                 data-term="' . esc_attr($term_slug) . '" 
                 data-tax="' . esc_attr($taxonomy) . '" 
+                data-search="' . esc_attr($search_query) . '" 
                 class="load-more-button">もっと見る</button>';
     }
 }
@@ -347,45 +349,76 @@ function sozai_render_load_more_button($query) {
 
 // AJAX for load more videos
 function sozai_load_more_ajax_handler() {
-    $num_display = get_theme_mod( 'num_display_setting', 6 );
-    // Get data from the JavaScript Payload
     $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
-    $term  = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
-    $tax   = isset($_POST['tax']) ? sanitize_text_field($_POST['tax']) : '';
-
+    $search_term = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
+    
     $args = array(
         'post_type'      => 'video',
-        'posts_per_page' => $num_display,
+        'posts_per_page' => get_theme_mod('num_display_setting', 6),
         'paged'          => $paged,
-        'post_status'    => 'publish',
     );
 
-    // ONLY apply the filter if the button sent us a term and tax
-    if ( !empty($term) && !empty($tax) ) {
-        $args['tax_query'] = array(
-            array(
-                'taxonomy' => $tax,
-                'field'    => 'slug',
-                'terms'    => $term,
-            ),
-        );
-    }
+    if (!empty($search_term)) {
+    $video_ids = sozai_get_video_search_ids($search_term);
+    $args['post__in'] = $video_ids;
+    // Critical for consistency!
+    $args['orderby']  = 'post__in'; 
+}
 
     $query = new WP_Query($args);
-
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
             get_template_part('template-parts/video-content', 'video');
         endwhile;
     else :
-        echo $num_display;
         echo 'DONE'; 
     endif;
 
     wp_reset_postdata();
     wp_die();
 }
-// These hooks connect the JavaScript 'action' to the PHP function
 add_action('wp_ajax_load_more_videos', 'sozai_load_more_ajax_handler');
 add_action('wp_ajax_nopriv_load_more_videos', 'sozai_load_more_ajax_handler');
+
+
+function sozai_get_video_search_ids($search_term) {
+    if (empty($search_term)) return array();
+
+    // 1. Find IDs matching Title/Content (Standard search)
+    $search_ids = get_posts(array(
+        'post_type'   => 'video',
+        's'           => $search_term,
+        'numberposts' => -1,
+        'fields'      => 'ids',
+        'post_status' => 'publish'
+    ));
+
+    // 2. Find Category/Keyword IDs (Fuzzy match)
+    $matched_terms = get_terms(array(
+        'taxonomy'   => array('video_category', 'video_keyword'),
+        'name__like' => $search_term,
+        'fields'     => 'ids',
+    ));
+
+    $tax_ids = array();
+    if (!empty($matched_terms)) {
+        $tax_ids = get_posts(array(
+            'post_type'   => 'video',
+            'numberposts' => -1,
+            'fields'      => 'ids',
+            'post_status' => 'publish',
+            'tax_query'   => array(
+                'relation' => 'OR',
+                array('taxonomy' => 'video_category', 'field' => 'term_id', 'terms' => $matched_terms),
+                array('taxonomy' => 'video_keyword', 'field' => 'term_id', 'terms' => $matched_terms),
+            ),
+        ));
+    }
+
+    // Merge and force unique IDs as integers
+    $all_ids = array_unique(array_merge((array)$search_ids, (array)$tax_ids));
+    
+    // Return sorted IDs to prevent weird database ordering issues
+    return !empty($all_ids) ? array_map('intval', $all_ids) : array(0);
+}
 ?>
