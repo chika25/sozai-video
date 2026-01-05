@@ -33,7 +33,7 @@
                 
                 <?php
                     // Define the arguments 
-                    $num_display = 6;
+                    $num_display = get_theme_mod( 'num_display_setting', 6 );
                     $args = array(
                         'post_type'      => 'video', 
                         'posts_per_page' => $num_display,       

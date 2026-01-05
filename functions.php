@@ -45,6 +45,24 @@ add_action('init', 'my_theme_register_menus');
 
 // change text for main page, taxonomy page
 function sozai_customize_register( $wp_customize ) {
+    // get the number of videos display
+    $wp_customize->add_section( 'sozai_settings_section' , array(
+        'title'      => __( 'Global Post Settings', 'sozai' ),
+        'priority'   => 30,
+    ) );
+
+    $wp_customize->add_setting( 'num_display_setting', array(
+        'default'   => 6, 
+        'transport' => 'refresh',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'num_display_control', array(
+        'label'      => __( 'Number of Videos to Display', 'sozai' ),
+        'section'    => 'sozai_settings_section',
+        'settings'   => 'num_display_setting',
+        'type'       => 'number',
+    ) ) );
+
     // Add the section
     $wp_customize->add_section( 'sozai_seo_section' , array(
         'title'    => 'SEO Settings',
@@ -284,6 +302,7 @@ function sozai_save_video_specs($post_id) {
         update_post_meta($post_id, '_video_fps', sanitize_text_field($_POST['video_fps']));
     }
 }
+
 // Use the universal 'save_post' hook
 add_action('save_post', 'sozai_save_video_specs');
 
@@ -328,6 +347,7 @@ function sozai_render_load_more_button($query) {
 
 // AJAX for load more videos
 function sozai_load_more_ajax_handler() {
+    $num_display = get_theme_mod( 'num_display_setting', 6 );
     // Get data from the JavaScript Payload
     $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $term  = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
@@ -335,8 +355,7 @@ function sozai_load_more_ajax_handler() {
 
     $args = array(
         'post_type'      => 'video',
-        // make sure the number matches
-        'posts_per_page' => 1,
+        'posts_per_page' => $num_display,
         'paged'          => $paged,
         'post_status'    => 'publish',
     );
@@ -359,6 +378,7 @@ function sozai_load_more_ajax_handler() {
             get_template_part('template-parts/video-content', 'video');
         endwhile;
     else :
+        echo $num_display;
         echo 'DONE'; 
     endif;
 
