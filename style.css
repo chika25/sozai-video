@@ -245,6 +245,28 @@ a {
     background-color: rgb(215, 215, 215);
 }
 
+.video-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-preview {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.video-overlay {
+    position: absolute;
+    bottom: 0;
+    pointer-events: none; 
+    z-index: 2;
+}
+
+.video-container:hover .hover-preview {
+    transform: scale(1.05); 
+}
+
 .load-more-button {
     display:block;
     background: var(--main-gradient);

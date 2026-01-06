@@ -57,3 +57,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Video Hover Preview
+document.addEventListener('DOMContentLoaded', function() {
+    const previewVideos = document.querySelectorAll('.hover-preview');
+
+    previewVideos.forEach(video => {
+        const container = video.closest('.video-container');
+
+        container.addEventListener('mouseenter', () => {
+            // Start playing
+            const playPromise = video.play();
+            
+            // Browsers sometimes block play() if not initialized correctly
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay prevented or video failed to load");
+                });
+            }
+        });
+
+        container.addEventListener('mouseleave', () => {
+            // Pause and reset to the beginning (or leave at current frame)
+            video.pause();
+            // Reset to start so poster shows again
+            video.currentTime = 0; 
+        });
+    });
+});
