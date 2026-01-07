@@ -30,7 +30,7 @@ a {
     top: 0;
     z-index: 1000;
     background-color: var(--header-bg);
-    height: 100px; 
+    height: 60px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,7 +38,7 @@ a {
 
 .logo-container{
     width:100px;
-    height:70px;
+    height:50px;
 }
 
 .logo-container img{
@@ -50,7 +50,7 @@ a {
 /* category slider */
 .category-container {
     position: sticky;
-    top: 100px; 
+    top: 60px; 
     z-index: 999;
     height:57px;
     background-color: var(--category-bg);
@@ -87,7 +87,7 @@ a {
 /* Sidebar */
 .sidebar {
     position: sticky;
-    top:157px;
+    top:117px;
     height: calc(100vh - 157px);
     align-self: flex-start;
     overflow-y: auto;
