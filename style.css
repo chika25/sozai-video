@@ -312,6 +312,10 @@ a {
     background-color: rgb(215, 215, 215);
 }
 
+.video-title {
+    color: white;
+}
+
 .video-container {
     position: relative;
     overflow: hidden;

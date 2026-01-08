@@ -1,6 +1,7 @@
 <?php 
     $url = get_post_meta(get_the_ID(), '_video_url', true); 
-    $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
+    $alttext = get_post_meta(get_the_ID(), '_alt_text', true);
+    $thumbnail =get_post_meta(get_the_ID(), '_thumbnail', true);
 ?>  
 
 <article class="video-card">
@@ -12,7 +13,8 @@
                     muted 
                     loop 
                     preload="metadata" 
-                    poster="<?php echo esc_url($thumbnail_url); ?>"
+                    poster="<?php echo esc_url($thumbnail); ?>"
+                    aria-label="<?php echo esc_html($alttext); ?>"
                     playsinline
                 >
                     <source src="<?php echo esc_url($url); ?>" type="video/mp4">

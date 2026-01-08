@@ -32,7 +32,6 @@ function my_theme_setup() {
         'flex-height' => true,
         'flex-width'  => true,
     ));
-    add_theme_support( 'post-thumbnails' );
 }
 add_action('after_setup_theme', 'my_theme_setup');
 
@@ -203,7 +202,7 @@ function register_sozai_video_post_type() {
         'public'      => true,
         'has_archive' => true,
         'menu_icon'   => 'dashicons-video-alt3',
-        'supports'    => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'supports'    => array('title', 'editor', 'excerpt'),
         'rewrite'     => array('slug' => 'videos'),
         'show_in_rest'=> true, 
     );
@@ -264,6 +263,8 @@ function sozai_display_video_specs($post) {
     $format     = get_post_meta($post->ID, '_video_format', true);
     $fps        = get_post_meta($post->ID, '_video_fps', true);
     $url        = get_post_meta($post->ID, '_video_url', true);
+    $thumbnail  = get_post_meta($post->ID, '_thumbnail', true);
+    $alt        = get_post_meta($post->ID, '_alt_text', true);
 
     wp_nonce_field('sozai_video_specs_nonce', 'video_specs_nonce');
 
@@ -278,6 +279,12 @@ function sozai_display_video_specs($post) {
 
     echo '<p><label>URL:</label><br>';
     echo '<input type="text" name="video_url" value="' . esc_attr($url) . '" placeholder="" style="width:100%;"></p>';
+
+    echo '<p><label>Alt テキスト:</label><br>';
+    echo '<input type="text" name="alt" value="' . esc_attr($alt) . '" placeholder="" style="width:100%;"></p>';
+
+    echo '<p><label>Thumbnail URL:</label><br>';
+    echo '<input type="text" name="thumbnail" value="' . esc_attr($url) . '" placeholder="" style="width:100%;"></p>';
 }
 
 function sozai_save_video_specs($post_id) {
@@ -308,6 +315,12 @@ function sozai_save_video_specs($post_id) {
     }
     if (isset($_POST['video_url'])) {
         update_post_meta($post_id, '_video_url', sanitize_text_field($_POST['video_url']));
+    }
+    if (isset($_POST['alt'])) {
+        update_post_meta($post_id, '_alt_text', sanitize_text_field($_POST['alt']));
+    }
+    if (isset($_POST['thumbnail'])) {
+        update_post_meta($post_id, '_thumbnail', sanitize_text_field($_POST['thumbnail']));
     }
 }
 

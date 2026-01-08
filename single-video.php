@@ -17,8 +17,9 @@
                 $format = get_post_meta(get_the_ID(), '_video_format', true);
                 $fps = get_post_meta(get_the_ID(), '_video_fps', true); 
                 $url = get_post_meta(get_the_ID(), '_video_url', true); 
-                $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
-                ?>
+                $thumbnail =get_post_meta(get_the_ID(), '_thumbnail', true);
+                $alttext = get_post_meta(get_the_ID(), '_alt_text', true);
+            ?>
 
                 <?php if ( $detail_header_suffix ): ?>
                     <h1 class="main-seo-title">
@@ -35,7 +36,13 @@
                 <section class="video-hero">
                     <div class="video-hero__main">
                         <div class="video-hero__player">
-                            <video controls poster="<?php echo esc_url($thumbnail);  ?>" preload="metadata">
+                            <video 
+                                controls 
+                                muted
+                                preload="metadata"
+                                poster="<?php echo esc_url($thumbnail); ?>"
+                                aria-label="<?php echo esc_html($alttext); ?>"
+                            >
                                 <source src="<?php  echo esc_url($url); ?>" type="video/mp4">
                                 <p>お使いのブラウザはビデオタグをサポートしていません。</p>
                             </video>
