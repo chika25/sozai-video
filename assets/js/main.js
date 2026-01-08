@@ -85,3 +85,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Toggle Menu and Searchbar
+document.addEventListener('DOMContentLoaded', function() {
+    const menuIcon = document.getElementById("menu-toggle");
+    const searchIcon = document.getElementById("search-toggle");
+    const menuOverlay = document.getElementById("sidebar-overlay");
+    const searchOverlay = document.getElementById("search-overlay");
+
+    menuIcon.addEventListener('click', function() {
+        this.classList.toggle('open');
+        menuOverlay.classList.toggle('show');
+        menuOverlay.classList.toggle('hide');
+
+        searchIcon.classList.toggle('hidden');
+    });
+
+    searchIcon.addEventListener('click', function() {
+        this.classList.toggle('open');
+        searchOverlay.classList.toggle('show');
+        searchOverlay.classList.toggle('hide');
+
+        menuIcon.classList.toggle('hidden');
+    });
+});

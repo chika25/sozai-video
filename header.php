@@ -18,11 +18,27 @@
     </head>
     <body <?php body_class(); ?>>
         <header class="site-header">
+            <div id="menu-toggle">
+                <i class="fa fa-bars"></i>
+                <i class="fa fa-times icon-close"></i>
+            </div>
+            <div id="sidebar-overlay" class="hide">
+                <aside class="sidebar">
+                    <?php get_sidebar(); ?>
+               </aside>
+            </div>
             <div class="logo-container">
                 <?php 
                     if (function_exists('the_custom_logo')) {
                         the_custom_logo(); 
                     }
                 ?>
+            </div>
+            <div id="search-toggle">
+                <i class="fa fa-search"></i>
+                <i class="fa fa-times icon-close"></i>
+            </div>
+            <div id="search-overlay" class="hide">
+                <?php get_search_form(); ?>
             </div>
         </header>
