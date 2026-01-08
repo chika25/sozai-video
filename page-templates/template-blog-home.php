@@ -19,7 +19,7 @@ get_header(); ?>
                         <?php the_title(); ?>
                     </h1>
 
-                    <p>準備中</p>
+                    <p style="padding-bottom:50px">準備中</p>
 
                 <?php endwhile; ?>
             </section>

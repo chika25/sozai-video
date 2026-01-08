@@ -2,7 +2,7 @@
 <?php get_template_part('template-parts/category-slider'); ?>
 <div class="layout-wrapper">
     <aside class="sidebar">
-        <?php get_sidebar(); ?>
+        <?php get_template_part('template-parts/sidebar'); ?>
     </aside>
     <main class="main-content">
         <div class="main-wrapper">

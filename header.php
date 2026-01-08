@@ -24,7 +24,7 @@
             </div>
             <div id="sidebar-overlay" class="hide">
                 <aside class="sidebar">
-                    <?php get_sidebar(); ?>
+                    <?php get_template_part('template-parts/sidebar'); ?>
                </aside>
             </div>
             <div class="logo-container">

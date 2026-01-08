@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         menuOverlay.classList.toggle('hide');
 
         searchIcon.classList.toggle('hidden');
+        document.body.classList.toggle('no-scroll');
     });
 
     searchIcon.addEventListener('click', function() {
@@ -107,5 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
         searchOverlay.classList.toggle('hide');
 
         menuIcon.classList.toggle('hidden');
+        document.body.classList.toggle('no-scroll');
     });
 });
