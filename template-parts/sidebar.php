@@ -13,10 +13,15 @@
         <p class="sidebar-title">オススメキーワード</p>
         <div class="keyword-list">
             <?php
+            // get top 10 keywords based on the number of videos
             $terms = get_terms(array(
                 'taxonomy'   => 'video_keyword',
-                'hide_empty' => false, // Set to true once you have real videos assigned
+                'hide_empty' => true,      
+                'orderby'    => 'count',   
+                'order'      => 'DESC',    
+                'number'     => 10,
             ));
+
 
             if (!empty($terms) && !is_wp_error($terms)) :
                 foreach ($terms as $term) : 
