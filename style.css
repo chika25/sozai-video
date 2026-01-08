@@ -314,6 +314,7 @@ a {
 
 .video-title {
     color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .video-container {
@@ -688,7 +689,13 @@ p.contact-text, .content-about, .legal-content p {
     }
 
     .page-content{
-        width:90%;
+        width:100%;
+    }
+    #search-toggle {
+        margin-right: 16px !important;
+    }
+    #menu-toggle {
+        margin-left: 16px !important;
     }
     
 }
