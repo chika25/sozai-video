@@ -20,11 +20,7 @@
                 </h1>
             <?php endif; ?>
     
-            <?php if ( $unique_desc ) : ?>
-                <p class="main-seo-text">
-                    <?php echo esc_html( wp_strip_all_tags( $unique_desc ) ); ?>
-                </p>
-            <?php endif; ?>
+        
 
             <section class="video-section">
                 
@@ -71,6 +67,12 @@
                 <?php endif; ?>
                 
             </section>
+
+            <?php if ( $unique_desc ) : ?>
+                <p class="main-seo-text category-seo-text">
+                    <?php echo nl2br(esc_html( wp_strip_all_tags( $unique_desc )) ); ?>
+                </p> 
+            <?php endif; ?>
         </div>
     </main>
 </div>

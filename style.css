@@ -129,6 +129,7 @@ a {
     box-shadow: 0px 4px 4px 0px #DADADA;
     -ms-overflow-style: none;  
     scrollbar-width: none; 
+    justify-content: space-evenly;
 }
 
 .category-container::-webkit-scrollbar {
@@ -288,8 +289,9 @@ a {
     max-width: 600px;
     margin: 0 auto;
     margin-top: 25px;
-    font-size: 1.3rem;
+    font-size: 1.12rem; 
 }
+
 
 .h2-title-home {
     text-align: center;

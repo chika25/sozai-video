@@ -48,6 +48,29 @@ add_action('init', function() {
     add_post_type_support('page', 'excerpt');
 });
 
+// Add custom field to Category Edit page
+add_action( 'video_category_edit_form_fields', 'add_seo_description_field', 10, 2 );
+function add_seo_description_field( $term ) {
+    $seo_desc = get_term_meta( $term->term_id, 'seo_description', true );
+    ?>
+    <tr class="form-field">
+        <th scope="row"><label for="seo_description">SEO Meta Description</label></th>
+        <td>
+            <textarea name="seo_description" id="seo_description" rows="5" cols="50"><?php echo esc_textarea( $seo_desc ); ?></textarea>
+            <p class="description">This text will be used for Google Search Results only.</p>
+        </td>
+    </tr>
+    <?php
+}
+
+// Save the custom field data
+add_action( 'edited_video_category', 'save_seo_description_field' );
+function save_seo_description_field( $term_id ) {
+    if ( isset( $_POST['seo_description'] ) ) {
+        update_term_meta( $term_id, 'seo_description', $_POST['seo_description'] );
+    }
+}
+
 // SEO Meta Data for Header
 function theme_custom_seo_meta() {
     // 1. HOME PAGE: Use Customizer Settings
@@ -85,7 +108,7 @@ function theme_custom_seo_meta() {
     elseif ( is_tax() || is_category() ) {
         $current_term = get_queried_object();
         $cat_title = single_cat_title('', false) . ' - フリー動画素材';
-        $cat_desc  = term_description();
+        $cat_desc  = get_term_meta( $current_term->term_id, 'seo_description', true );
 
         if ( !empty($cat_desc) ) {
             $content = wp_strip_all_tags($cat_desc);
