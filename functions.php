@@ -149,10 +149,10 @@ function theme_custom_seo_meta() {
         $page_desc  = get_the_excerpt(); 
 
         if ( empty($page_desc) ) {
-            $desc= "【商用OK】" .  $page_title . "の高品質なAI動画素材を無料で配布中。登録不要でYouTubeや制作の背景にすぐ使えます。SozAI-Videoで今すぐダウンロード。";
+            $page_desc= "【商用OK】" .  $page_title . "の高品質なAI動画素材を無料で配布中。登録不要でYouTubeや制作の背景にすぐ使えます。SozAI-Videoで今すぐダウンロード。";
         }
         echo '<title>' . esc_html($page_title) . '</title>' . "\n";
-        echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
+        echo '<meta name="description" content="' . esc_attr($page_desc) . '">' . "\n";
 
         // INJECT VIDEO SCHEMA (JSON-LD)
         $thumb = get_post_meta(get_the_ID(), '_thumbnail', true);
@@ -163,8 +163,8 @@ function theme_custom_seo_meta() {
         {
           "@context": "https://schema.org",
           "@type": "VideoObject",
-          "name": "<?php echo esc_js(get_the_title()); ?>",
-          "description": "<?php echo esc_js($desc); ?>",
+          "name": "<?php echo esc_js($page_title); ?>",
+          "description": "<?php echo esc_js($page_desc); ?>",
           "thumbnailUrl": "<?php echo esc_url($thumb); ?>",
           "uploadDate": "<?php echo get_the_date('c'); ?>",
           "contentUrl": "<?php echo esc_url($url); ?>"
