@@ -43,6 +43,171 @@ function my_theme_register_menus() {
 }
 add_action('init', 'my_theme_register_menus');
 
+// Add expert to static page built page
+add_action('init', function() {
+    add_post_type_support('page', 'excerpt');
+});
+
+// SEO Meta Data for Header
+function theme_custom_seo_meta() {
+    // 1. HOME PAGE: Use Customizer Settings
+    if ( is_front_page() ) {
+        $home_title = get_theme_mod('home_seo_title', get_bloginfo('name'));
+        $home_desc  = get_theme_mod('home_seo_desc', get_bloginfo('description'));
+        
+        echo '<title>' . esc_html($home_title) . '</title>' . "\n";
+        echo '<meta name="description" content="' . esc_attr($home_desc) . '">' . "\n";
+
+        ?>
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SozAI-Video",
+        "url": "<?php echo esc_url( get_site_url()); ?>",
+        "description": "<?php echo esc_js($home_desc); ?>",
+        "publisher": {
+            "@type": "Organization",
+            "name": "SozAI-Video",
+            "logo": "<?php echo esc_url( get_site_url() . '/wp-content/uploads/2025/12/cropped-logo-Video--192x192.png' ); ?>",
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://yoursite.com/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+        }
+        </script>
+        <?php
+    }
+
+    // 2. CATEGORY PAGE: Use Category Name/Description
+    elseif ( is_tax() || is_category() ) {
+        $current_term = get_queried_object();
+        $cat_title = single_cat_title('', false) . ' - フリー動画素材';
+        $cat_desc  = term_description();
+
+        if ( !empty($cat_desc) ) {
+            $content = wp_strip_all_tags($cat_desc);
+        } 
+        else {
+            $content = "【商用OK】" . $cat_title . "の高品質なAI動画素材を無料で配布中。登録不要でYouTubeや制作の背景にすぐ使えます。SozAI-Videoで今すぐダウンロード。";
+        }
+        echo '<title>' . esc_html($cat_title) . '</title>' . "\n";
+        echo '<meta name="description" content="' . esc_attr($content) . '">' . "\n";
+
+        // Get array of videos in the category
+        $video_items = array();
+        $args = array(
+            'post_type'      => 'video', 
+            'posts_per_page' => 10,      
+            'tax_query'      => array(
+                array(
+                    'taxonomy' => $current_term->taxonomy, 
+                    'field'    => 'slug',
+                    'terms'    => $current_term->slug,
+                ),
+            ),
+        );
+
+        $video_query = new WP_Query($args);
+
+        if ( $video_query->have_posts() ) {
+            $position = 1;
+            while ( $video_query->have_posts() ) {
+                $video_query->the_post();
+                $video_items[] = array(
+                    "@type"    => "ListItem",
+                    "position" => $position,
+                    "url"      => get_permalink(),
+                    "name"     => get_the_title()
+                );
+                $position++;
+            }
+            wp_reset_postdata();
+        }
+
+        ?>
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "<?php echo esc_js($cat_title); ?>",
+        "description": "<?php echo esc_js($content); ?>",,
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": <?php echo json_encode($video_items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
+        }
+        }
+        </script>
+        <?php
+    }
+
+    // 3. SINGLE VIDEO PAGE: Use Post Title & Video Schema
+    elseif ( is_singular('video') ) { 
+        $page_title = get_the_title() . ' | 無料ダウンロード';
+        $page_desc  = get_the_excerpt(); 
+
+        if ( empty($page_desc) ) {
+            $desc= "【商用OK】" .  $page_title . "の高品質なAI動画素材を無料で配布中。登録不要でYouTubeや制作の背景にすぐ使えます。SozAI-Videoで今すぐダウンロード。";
+        }
+        echo '<title>' . esc_html($page_title) . '</title>' . "\n";
+        echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
+
+        // INJECT VIDEO SCHEMA (JSON-LD)
+        $thumb = get_post_meta(get_the_ID(), '_thumbnail', true);
+        $url = get_post_meta(get_the_ID(), '_video_url', true); 
+        
+        ?>
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": "<?php echo esc_js(get_the_title()); ?>",
+          "description": "<?php echo esc_js($desc); ?>",
+          "thumbnailUrl": "<?php echo esc_url($thumb); ?>",
+          "uploadDate": "<?php echo get_the_date('c'); ?>",
+          "contentUrl": "<?php echo esc_url($url); ?>"
+        }
+        </script>
+        <?php
+    }
+    elseif ( is_page() ) {
+        $page_static_title = get_the_title();
+        $static_desc = get_the_excerpt();
+
+        if ( empty($static_desc) ) {
+            $static_desc= esc_html($page_static_title) . "| SozAI-Video";
+        }
+        
+        echo '<title>' . esc_html($page_static_title) . '|SozAI-Video-'. '</title>' . "\n";
+        echo '<meta name="description" content="' . esc_attr($static_desc) . '">';
+
+        ?>
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "<?php echo esc_js($page_static_title); ?>",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "SozAI-Video",
+            "url": "<?php echo esc_url( get_site_url()); ?>",
+            "logo": "<?php echo esc_url( get_site_url() . '/wp-content/uploads/2025/12/cropped-logo-Video--192x192.png' ); ?>",
+            "description": "<?php echo esc_js($static_desc); ?>",
+            "knowsAbout": ["AI動画素材",
+                            "AI Video Assets",
+                            "フリー動画素材",
+                            "Stock Footage",
+                            "YouTube動画素材"],
+            "areaServed": "JP"
+        }
+        }
+        </script>
+        <?php
+    }
+}
+add_action( 'wp_head', 'theme_custom_seo_meta', 1 );
+
 // change text for main page, taxonomy page
 function sozai_customize_register( $wp_customize ) {
     // get the number of videos display
