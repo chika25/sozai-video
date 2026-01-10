@@ -10,14 +10,16 @@
             
             <?php while ( have_posts() ) : the_post();  ?>
                 <?php 
+                $cf_url = "https://d39p1mizur7cgj.cloudfront.net";
+                $filename= get_post_meta(get_the_ID(), '_video_name', true); 
+                $main_video = $cf_url . "/videos/original/" . $filename . ".mp4";
+                $thumbnail = $cf_url . "/images/thumbs/" . "-thumbnail" . $filename . ".webp";
                 $current_term = get_the_title();
                 $unique_desc  = get_the_content();
                 $detail_header_suffix = get_theme_mod('details_h1_text', 'の登録不要、商用利用OKのAI動画素材|SozAI-Video-');
                 $resolution = get_post_meta(get_the_ID(), '_video_resolution', true);
                 $format = get_post_meta(get_the_ID(), '_video_format', true);
                 $fps = get_post_meta(get_the_ID(), '_video_fps', true); 
-                $url = get_post_meta(get_the_ID(), '_video_url', true); 
-                $thumbnail =get_post_meta(get_the_ID(), '_thumbnail', true);
                 $alttext = get_post_meta(get_the_ID(), '_alt_text', true);
             ?>
 
@@ -43,7 +45,7 @@
                                 poster="<?php echo esc_url($thumbnail); ?>"
                                 aria-label="<?php echo esc_html($alttext); ?>"
                             >
-                                <source src="<?php  echo esc_url($url); ?>" type="video/mp4">
+                                <source src="<?php  echo esc_url($main_video); ?>" type="video/mp4">
                                 <p>お使いのブラウザはビデオタグをサポートしていません。</p>
                             </video>
                         </div>
@@ -64,7 +66,7 @@
                                     ?>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url($url); ?>" download class="btn-download">
+                        <a href="<?php echo esc_url($main_video); ?>" download class="btn-download">
                             無料ダウンロード
                         </a>  
                     </div>

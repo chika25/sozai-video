@@ -73,6 +73,7 @@ function save_seo_description_field( $term_id ) {
 
 // SEO Meta Data for Header
 function theme_custom_seo_meta() {
+
     // 1. HOME PAGE: Use Customizer Settings
     if ( is_front_page() ) {
         $home_title = get_theme_mod('home_seo_title', get_bloginfo('name'));
@@ -168,6 +169,12 @@ function theme_custom_seo_meta() {
 
     // 3. SINGLE VIDEO PAGE: Use Post Title & Video Schema
     elseif ( is_singular('video') ) { 
+        $cf_url = "https://d39p1mizur7cgj.cloudfront.net";
+        $filename = get_post_meta(get_the_ID(), '_video_name', true);
+        $main_video = $cf_url . "/videos/original/" . $filename . ".mp4";
+        $preview_video = $cf_url . "/videos/previews/" . $filename . ".mp4";
+        $thumbnail = $cf_url . "/images/thumbs/" . $filename . "-thumbnail".".webp";
+
         $page_title = get_the_title() . ' | 無料ダウンロード';
         $page_desc  = get_the_excerpt(); 
 
@@ -179,7 +186,7 @@ function theme_custom_seo_meta() {
 
         // INJECT VIDEO SCHEMA (JSON-LD)
         $thumb = get_post_meta(get_the_ID(), '_thumbnail', true);
-        $url = get_post_meta(get_the_ID(), '_video_url', true); 
+        
         
         ?>
         <script type="application/ld+json">
@@ -190,7 +197,7 @@ function theme_custom_seo_meta() {
           "description": "<?php echo esc_js($page_desc); ?>",
           "thumbnailUrl": "<?php echo esc_url($thumb); ?>",
           "uploadDate": "<?php echo get_the_date('c'); ?>",
-          "contentUrl": "<?php echo esc_url($url); ?>"
+          "contentUrl": "<?php echo esc_url($main_video); ?>"
         }
         </script>
         <?php
@@ -450,8 +457,7 @@ function sozai_display_video_specs($post) {
     $resolution = get_post_meta($post->ID, '_video_resolution', true);
     $format     = get_post_meta($post->ID, '_video_format', true);
     $fps        = get_post_meta($post->ID, '_video_fps', true);
-    $url        = get_post_meta($post->ID, '_video_url', true);
-    $thumbnail  = get_post_meta($post->ID, '_thumbnail', true);
+    $video_name = get_post_meta($post->ID, '_video_name', true);
     $alt        = get_post_meta($post->ID, '_alt_text', true);
 
     wp_nonce_field('sozai_video_specs_nonce', 'video_specs_nonce');
@@ -465,14 +471,12 @@ function sozai_display_video_specs($post) {
     echo '<p><label>フレームレート (FPS):</label><br>';
     echo '<input type="text" name="video_fps" value="' . esc_attr($fps) . '" placeholder="30fps" style="width:100%;"></p>';
 
-    echo '<p><label>URL:</label><br>';
-    echo '<input type="text" name="video_url" value="' . esc_attr($url) . '" placeholder="" style="width:100%;"></p>';
+    echo '<p><label>Video File Name(without .mp4):</label><br>';
+    echo '<input type="text" name="video_name" value="' . esc_attr($video_name) . '" placeholder="filename" style="width:100%;"></p>';
 
     echo '<p><label>Alt テキスト:</label><br>';
     echo '<input type="text" name="alt" value="' . esc_attr($alt) . '" placeholder="" style="width:100%;"></p>';
 
-    echo '<p><label>Thumbnail URL:</label><br>';
-    echo '<input type="text" name="thumbnail" value="' . esc_attr($url) . '" placeholder="" style="width:100%;"></p>';
 }
 
 function sozai_save_video_specs($post_id) {
@@ -501,14 +505,11 @@ function sozai_save_video_specs($post_id) {
     if (isset($_POST['video_fps'])) {
         update_post_meta($post_id, '_video_fps', sanitize_text_field($_POST['video_fps']));
     }
-    if (isset($_POST['video_url'])) {
-        update_post_meta($post_id, '_video_url', sanitize_text_field($_POST['video_url']));
+    if (isset($_POST['video_name'])) {
+        update_post_meta($post_id, '_video_name', sanitize_text_field($_POST['video_name']));
     }
     if (isset($_POST['alt'])) {
         update_post_meta($post_id, '_alt_text', sanitize_text_field($_POST['alt']));
-    }
-    if (isset($_POST['thumbnail'])) {
-        update_post_meta($post_id, '_thumbnail', sanitize_text_field($_POST['thumbnail']));
     }
 }
 
