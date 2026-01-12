@@ -13,7 +13,7 @@
                 $cf_url = "https://d39p1mizur7cgj.cloudfront.net";
                 $filename= get_post_meta(get_the_ID(), '_video_name', true); 
                 $main_video = $cf_url . "/videos/original/" . $filename . ".mp4";
-                $thumbnail = $cf_url . "/images/thumbs/" . "-thumbnail" . $filename . ".webp";
+                $thumbnail = $cf_url . "/images/thumbs/" .  $filename . "-thumbnail" . ".webp";
                 $current_term = get_the_title();
                 $unique_desc  = get_the_content();
                 $detail_header_suffix = get_theme_mod('details_h1_text', 'の登録不要、商用利用OKのAI動画素材|SozAI-Video-');
