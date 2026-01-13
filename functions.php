@@ -562,10 +562,14 @@ function sozai_load_more_ajax_handler() {
     $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $search_term = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
     
+    $term = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
+    $tax  = isset($_POST['tax']) ? sanitize_text_field($_POST['tax']) : '';
+
     $args = array(
         'post_type'      => 'video',
         'posts_per_page' => get_theme_mod('num_display_setting', 6),
         'paged'          => $paged,
+        'post_status'    => 'publish'
     );
 
     if (!empty($search_term)) {
@@ -573,7 +577,15 @@ function sozai_load_more_ajax_handler() {
     $args['post__in'] = $video_ids;
     // Critical for consistency!
     $args['orderby']  = 'post__in'; 
-}
+    }elseif (!empty($term) && !empty($tax)) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => $tax,
+                'field'    => 'slug',
+                'terms'    => $term,
+            ),
+        );
+    }
 
     $query = new WP_Query($args);
     if ($query->have_posts()) :
