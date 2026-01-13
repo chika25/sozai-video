@@ -2,7 +2,7 @@
 <?php get_template_part('template-parts/category-slider'); ?>
 <div class="layout-wrapper">
     <aside class="sidebar">
-        <?php get_sidebar(); ?>
+        <?php get_template_part('template-parts/sidebar');?>
     </aside>
     <main class="main-content">
         <div class="main-wrapper">
@@ -21,6 +21,7 @@
                 $format = get_post_meta(get_the_ID(), '_video_format', true);
                 $fps = get_post_meta(get_the_ID(), '_video_fps', true); 
                 $alttext = get_post_meta(get_the_ID(), '_alt_text', true);
+                $sozai_url = get_post_meta(get_the_ID(), '_sozai_url', true);
                 $allowed_html = array(
                     'br' => array(),
                 );
@@ -73,7 +74,16 @@
                             無料ダウンロード
                         </a>  
                     </div>
-
+                    <?php if($sozai_url):?>
+                        <div class="sozai-url-container">
+                             <?php 
+                                $site_url = $sozai_url;
+                                $site_name = 'サムネイル画像をダウンロード<i class="fa fa-external-link" aria-hidden="true"></i>';
+                                
+                                echo '<a href="' . $site_url . '" class="sozai-url" target="_blank" rel="noopener noreferrer">' . $site_name . '</a>';
+                            ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="video-details">
                         <div class="video-details__content">
                             <?php if($resolution):?>

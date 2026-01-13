@@ -64,6 +64,19 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.sozai-url-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sozai-url{
+    transition: color 0.2s ease;
+}
+
+.sozai-url:hover{
+    color:var(--primary-orange);
+}
+
 .video-details {
     width: fit-content;
     margin: 0 auto;

@@ -483,6 +483,7 @@ function sozai_display_video_specs($post) {
     $fps        = get_post_meta($post->ID, '_video_fps', true);
     $video_name = get_post_meta($post->ID, '_video_name', true);
     $alt        = get_post_meta($post->ID, '_alt_text', true);
+    $sozai_url  = get_post_meta($post->ID, '_sozai_url', true);
 
     wp_nonce_field('sozai_video_specs_nonce', 'video_specs_nonce');
 
@@ -500,6 +501,9 @@ function sozai_display_video_specs($post) {
 
     echo '<p><label>Alt テキスト:</label><br>';
     echo '<input type="text" name="alt" value="' . esc_attr($alt) . '" placeholder="" style="width:100%;"></p>';
+
+    echo '<p><label>SozAI image URL:</label><br>';
+    echo '<input type="text" name="sozai_url" value="' . esc_attr($sozai_url) . '" placeholder="" style="width:100%;"></p>';
 
 }
 
@@ -534,6 +538,9 @@ function sozai_save_video_specs($post_id) {
     }
     if (isset($_POST['alt'])) {
         update_post_meta($post_id, '_alt_text', sanitize_text_field($_POST['alt']));
+    }
+    if (isset($_POST['sozai_url'])) {
+        update_post_meta($post_id, '_sozai_url', sanitize_text_field($_POST['sozai_url']));
     }
 }
 
