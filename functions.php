@@ -1,9 +1,33 @@
 <?php
 // load styles
 function my_theme_assets() {
+    wp_enqueue_style( 'my-main-style', get_stylesheet_uri() );
     // Load Font Awesome 4.7
     wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
-    wp_enqueue_style( 'my-main-style', get_stylesheet_uri() );
+
+    wp_enqueue_style('sozai-layout', get_template_directory_uri() . '/assets/css/layout.css');
+    wp_enqueue_style('sozai-responsive', get_template_directory_uri() . '/assets/css/responsive.css');
+    wp_enqueue_style('sozai-searchbar', get_template_directory_uri() . '/assets/css/searchbar.css');
+    
+    // load breadcrumbs.css other than home page
+    if (!is_front_page()) {
+        wp_enqueue_style('sozai-breadcrumbs', get_template_directory_uri() . '/assets/css/breadcrumbs.css');
+    }
+
+    // load page.css on all single page
+    if (is_page()) {
+        wp_enqueue_style('sozai-page', get_template_directory_uri() . '/assets/css/page.css');
+    }
+
+    // load video-details-page.css on details page
+    if (is_singular('video')) {
+        wp_enqueue_style('sozai-video-details-page', get_template_directory_uri() . '/assets/css/video-details-page.css');
+    }
+
+    // load video grid when it is not single page or video details page
+    if (!is_page() || !is_singular('video')) {
+        wp_enqueue_style('sozai-video-grid', get_template_directory_uri() . '/assets/css/video-grid.css');
+    }
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_assets' );
 
