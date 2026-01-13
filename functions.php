@@ -117,7 +117,7 @@ function theme_custom_seo_meta() {
         "publisher": {
             "@type": "Organization",
             "name": "SozAI-Video",
-            "logo": "<?php echo esc_url( get_site_url() . '/wp-content/uploads/2025/12/cropped-logo-Video--192x192.png' ); ?>",
+            "logo": "<?php echo esc_url( get_site_url() . '/wp-content/uploads/2025/12/cropped-logo-Video--192x192.png' ); ?>"
         },
         "potentialAction": {
             "@type": "SearchAction",
@@ -181,7 +181,7 @@ function theme_custom_seo_meta() {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": "<?php echo esc_js($cat_title); ?>",
-        "description": "<?php echo esc_js($content); ?>",,
+        "description": "<?php echo esc_js($content); ?>",
         "mainEntity": {
             "@type": "ItemList",
             "itemListElement": <?php echo json_encode($video_items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
@@ -197,7 +197,8 @@ function theme_custom_seo_meta() {
         $filename = get_post_meta(get_the_ID(), '_video_name', true);
         $main_video = $cf_url . "/videos/original/" . $filename . ".mp4";
         $preview_video = $cf_url . "/videos/previews/" . $filename . ".mp4";
-        $thumbnail = $cf_url . "/images/thumbs/" . $filename . "-thumbnail".".webp";
+        $thumbnail = $cf_url . "/images/thumbs/" . $filename . "-thumbnail" .".webp";
+        $thumbnail = $cf_url . "/images/thumbs/" . $filename . "-thumbnail" . ".webp";
 
         $page_title = get_the_title() . ' | 無料ダウンロード';
         $page_desc  = get_the_excerpt(); 
@@ -207,9 +208,6 @@ function theme_custom_seo_meta() {
         }
         echo '<title>' . esc_html($page_title) . '</title>' . "\n";
         echo '<meta name="description" content="' . esc_attr($page_desc) . '">' . "\n";
-
-        // INJECT VIDEO SCHEMA (JSON-LD)
-        $thumb = get_post_meta(get_the_ID(), '_thumbnail', true);
         
         
         ?>
@@ -219,7 +217,7 @@ function theme_custom_seo_meta() {
           "@type": "VideoObject",
           "name": "<?php echo esc_js($page_title); ?>",
           "description": "<?php echo esc_js($page_desc); ?>",
-          "thumbnailUrl": "<?php echo esc_url($thumb); ?>",
+          "thumbnailUrl": "<?php echo esc_url($thumbnail); ?>",
           "uploadDate": "<?php echo get_the_date('c'); ?>",
           "contentUrl": "<?php echo esc_url($main_video); ?>"
         }
