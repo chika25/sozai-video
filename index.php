@@ -12,11 +12,14 @@
             $header_text = get_theme_mod('homepage_h1_text', '登録不要、商用利用OKのAI動画素材サイト|SozAI-Video-'); 
             $desc_text = get_theme_mod('homepage_text', '...'); 
             $h2_title = get_theme_mod('h2_title_text', '新着動画素材');
+            $allowed_html = array(
+                'br' => array(),
+            );
             ?>
 
             <?php if ( $header_text ): ?>
                 <h1 class="main-seo-title">
-                    <?php echo esc_html( $header_text ); ?>
+                    <?php echo wp_kses( $header_text, $allowed_html); ?>
                 </h1>
             <?php endif; ?>
 

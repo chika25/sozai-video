@@ -21,11 +21,14 @@
                 $format = get_post_meta(get_the_ID(), '_video_format', true);
                 $fps = get_post_meta(get_the_ID(), '_video_fps', true); 
                 $alttext = get_post_meta(get_the_ID(), '_alt_text', true);
+                $allowed_html = array(
+                    'br' => array(),
+                );
             ?>
 
                 <?php if ( $detail_header_suffix ): ?>
                     <h1 class="main-seo-title">
-                        <?php echo $current_term, esc_html( $detail_header_suffix ); ?>
+                        <?php echo $current_term, wp_kses( $detail_header_suffix, $allowed_html); ?>
                     </h1>
                 <?php endif; ?>
 

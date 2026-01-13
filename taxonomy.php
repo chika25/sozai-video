@@ -12,11 +12,14 @@
             $current_term = single_term_title('', false);
             $unique_desc  = term_description();
             $taxonomy_text = get_theme_mod('taxonomy_h1_text', 'のAI動画素材 (登録不要・商用利用Ok)|SozAI-Video'); 
+            $allowed_html = array(
+                'br' => array(),
+            );
             ?>
             
             <?php if ( $taxonomy_text ): ?>
                 <h1 class="main-seo-title">  
-                    <?php echo $current_term, esc_html( $taxonomy_text ); ?>
+                    <?php echo $current_term, wp_kses($taxonomy_text, $allowed_html); ?>
                 </h1>
             <?php endif; ?>
     
